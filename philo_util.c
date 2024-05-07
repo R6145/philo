@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:33:21 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/06 11:34:07 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:55:56 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@ u_int64_t	current_time(void)
 	if (gettimeofday(&tv, NULL))
 		return (printf("time error\n"), 0);
 	return ((tv.tv_sec * (u_int64_t)1000) + (tv.tv_usec / 1000));
+}
+
+void	sleep_for(useconds_t time)
+{
+	u_int64_t	start;
+
+	start = get_time();
+	while ((get_time() - start) < time)
+		usleep(time / 5);
 }
 
 long	ft_atoi(const char *str)
