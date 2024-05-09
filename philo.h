@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:25:08 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/07 11:56:02 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/09 11:19:05 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,14 @@ typedef struct s_philo
 long				ft_atoi(const char *str);
 u_int64_t			current_time(void);
 void				sleep_for(useconds_t time);
+int					ft_strncmp(const char *s1, const char *s2, size_t n);
 // init
 int					init_protocol(t_philo *philo, char **argv, int argc);
 void				init_protocol2(t_philo *philo);
+// action
+void				print_m(char *str,
+						t_philos *philos) void lock_f(t_philos *philos);
+void				unlock_f(t_philos *philos);
+void				eating(t_philos *philos);
 
 #endif

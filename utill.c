@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:17:20 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/04/30 11:17:58 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/09 11:18:53 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,20 @@ int	ft_atoi(const char *str)
 	while (str[i] == '0')
 		i++;
 	return (over(str + i, sign));
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (n - i > 1 && *s1 != '\0' && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+		i++;
+	}
+	return ((unsigned char)(*s1) - (unsigned char)(*s2));
 }

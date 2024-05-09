@@ -6,16 +6,16 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:10:27 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/07 11:58:44 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/09 11:20:05 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-void	messages(char *str, t_philos *philos)
+void	print_m(char *str, t_philos *philos)
 {
 	pthread_mutex_lock(&philos->philo->writing);
-	if (ft_strcmp("died", str) == 0 && philos->philo->i[2] == 0)
+	if (ft_strncmp("died", str, 5) == 0 && philos->philo->i[2] == 0)
 	{
 		printf("%lu ", get_time() - philos->philo->time[3]);
 		printf("%d %s\n", philos->i[0], str);
@@ -27,33 +27,32 @@ void	messages(char *str, t_philos *philos)
 	pthread_mutex_unlock(&philos->philo->writing);
 }
 
-
-void	take_forks(t_philos *philos)
+void	lock_f(t_philos *philos)
 {
 	pthread_mutex_lock(philos->right_fork);
-	messages("has taken a fork", philos);
+	print_m("has taken a fork", philos);
 	pthread_mutex_lock(philos->left_fork);
-	messages("has taken a fork", philos);
+	print_m("has taken a fork", philos);
 }
 
-void	drop_forks(t_philos *philos)
+void	unlock_f(t_philos *philos)
 {
 	pthread_mutex_unlock(philos->left_fork);
 	pthread_mutex_unlock(philos->right_fork);
-	messages("is sleeping", philos);
+	print_m("is sleeping", philos);
 	ft_usleep(philos->philo->time[2]);
 }
 
-void	eat(t_philos *philos)
+void	eating(t_philos *philos)
 {
-	take_forks(philo);
-	// pthread_mutex_lock(&philo->lock);
-	// philo->eating = 1;
-	// philo->time_to_die = get_time() + philo->data->death_time;
-	// messages(EATING, philo);
-	// philo->eat_cont++;
-	// ft_usleep(philo->data->eat_time);
-	// philo->eating = 0;
-	// pthread_mutex_unlock(&philo->lock);
-	drop_forks(philos);
+	lock_f(philos);
+	pthread_mutex_lock(&philos->lock);
+	philos->i[3] = 1;
+	philos->i[2] = get_time() + philos->philo->i[2];
+	print_m("is eating", philos);
+	philos->i[1]++;
+	sleep_for(philos->philo->i[1]);
+	philos->i[3] = 0;
+	pthread_mutex_unlock(&philos->lock);
+	unlock_f(philos);
 }

@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:34:32 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/06 11:35:06 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/09 11:21:40 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,31 @@ void	init_protocol2(t_philo *philo)
 		pthread_mutex_init(&philo->philos[i].lock, NULL);
 		i++;
 	}
+}
+
+int	thread_init(t_philo *philo)
+{
+	// int			i;
+	// pthread_t	t0;
+
+	// i = -1;
+	// data->start_time = get_time();
+	// if (data->meals_nb > 0)
+	// {
+	// 	if (pthread_create(&t0, NULL, &monitor, &data->philos[0]))
+	// 		return (error(TH_ERR, data));
+	// }
+	// while (++i < data->philo_num)
+	// {
+	// 	if (pthread_create(&data->tid[i], NULL, &routine, &data->philos[i]))
+	// 		return (error(TH_ERR, data));
+	// 	ft_usleep(1);
+	// }
+	// i = -1;
+	// while (++i < data->philo_num)
+	// {
+	// 	if (pthread_join(data->tid[i], NULL))
+	// 		return (error(JOIN_ERR, data));
+	// }
+	// return (0);
 }
