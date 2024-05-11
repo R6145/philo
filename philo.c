@@ -6,23 +6,11 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:24:57 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/06 11:34:53 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/11 16:13:41 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-// int	init(t_data *data, char **argv, int argc)
-// {
-// 	if (init_data(data, argv, argc))
-// 		return (1);
-// 	if (alloc(data))
-// 		return (1);
-// 	if (init_forks(data))
-// 		return (1);
-// 	init_philos(data);
-// 	return (0);
-// }
 
 // int	case_one(t_data *data)
 // {
@@ -36,32 +24,28 @@
 // 	return (0);
 // }
 
-// void	clear_data(t_data	*data)
-// {
-// 	if (data->tid)
-// 		free(data->tid);
-// 	if (data->forks)
-// 		free(data->forks);
-// 	if (data->philos)
-// 		free(data->philos);
-// }
+//cc philo.c philo_util.c philo_init.c philo_action.c philo_actionii.c philo.h
+// ./a.out 3 100 100 100 4
 
-// void	ft_exit(t_data *data)
-// {
-// 	int	i;
 
-// 	i = -1;
-// 	while (++i < data->philo_num)
-// 	{
-// 		pthread_mutex_destroy(&data->forks[i]);
-// 		pthread_mutex_destroy(&data->philos[i].lock);
-// 	}
-// 	pthread_mutex_destroy(&data->write);
-// 	pthread_mutex_destroy(&data->lock);
-// 	clear_data(data);
-// }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	printf("%llu\n", current_time());
+	t_philo	philo;
+
+	if (argc < 5 || argc > 6)
+		return (127);
+	// if (input_checker(argv))
+	// 	return (127);
+	if (init_protocol(&philo, argv, argc) != 0)
+		return (127);
+	init_protocol2(&philo);
+	// if (init(&data, argv, argc))
+	// 	return (1);
+	// if (data.philo_num == 1)
+	// 	return (case_one(&data));
+	if (program_start(&philo) != 0)
+		return (1);
+	free_mem(&philo);
+	return (0);
 }

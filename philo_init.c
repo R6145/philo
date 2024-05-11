@@ -6,11 +6,11 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:34:32 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/09 11:21:40 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/11 15:43:46 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philo.h>
+#include "philo.h"
 
 int	init_protocol(t_philo *philo, char **argv, int argc)
 {
@@ -63,35 +63,40 @@ void	init_protocol2(t_philo *philo)
 		philo->philos[i].i[1] = 0;
 		philo->philos[i].i[2] = 0;
 		philo->philos[i].i[3] = 0;
-		philo->philos[i].time_death = philo->time[3];
+		philo->philos[i].time_death = philo->time[0];
 		pthread_mutex_init(&philo->philos[i].lock, NULL);
 		i++;
 	}
 }
 
-int	thread_init(t_philo *philo)
+int	program_start(t_philo *philo)
 {
-	// int			i;
-	// pthread_t	t0;
+	int			i;
+	pthread_t	over;
 
-	// i = -1;
-	// data->start_time = get_time();
+	philo->time[3] = current_time();
 	// if (data->meals_nb > 0)
 	// {
-	// 	if (pthread_create(&t0, NULL, &monitor, &data->philos[0]))
-	// 		return (error(TH_ERR, data));
+	if (pthread_create(&over, NULL, &overseer, &philo->philos[0]))
+		return (printf("overseer creation failed"), free_mem(philo), 127);
 	// }
-	// while (++i < data->philo_num)
-	// {
-	// 	if (pthread_create(&data->tid[i], NULL, &routine, &data->philos[i]))
-	// 		return (error(TH_ERR, data));
-	// 	ft_usleep(1);
-	// }
-	// i = -1;
-	// while (++i < data->philo_num)
-	// {
-	// 	if (pthread_join(data->tid[i], NULL))
-	// 		return (error(JOIN_ERR, data));
-	// }
-	// return (0);
+	i = 0;
+	while (philo->i[0] > i)
+	{
+		if (pthread_create(&philo->thr_id[i], NULL, &t_action,
+				&philo->philos[i]))
+			return (printf("thread %d mem failed", i), free_mem(philo), 127);
+		sleep_for(1);
+		i++;
+	}
+	i = 0;
+	while (philo->i[0] > i)
+	{
+		if (pthread_join(philo->thr_id[i], NULL))
+			return (printf("freeing error"), free_mem(philo), 127);
+		i++;
+	}
+	if (pthread_join(over, NULL))
+		return (printf("freeing error"), free_mem(philo), 127);
+	return (0);
 }

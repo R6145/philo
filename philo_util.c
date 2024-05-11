@@ -6,11 +6,11 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:33:21 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/07 11:55:56 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/11 15:38:21 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philo.h>
+#include "philo.h"
 
 u_int64_t	current_time(void)
 {
@@ -25,8 +25,8 @@ void	sleep_for(useconds_t time)
 {
 	u_int64_t	start;
 
-	start = get_time();
-	while ((get_time() - start) < time)
+	start = current_time();
+	while ((current_time() - start) < time)
 		usleep(time / 5);
 }
 
@@ -55,4 +55,40 @@ long	ft_atoi(const char *str)
 		i++;
 	}
 	return (tot * sign);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (n - i > 1 && *s1 != '\0' && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+		i++;
+	}
+	return ((unsigned char)(*s1) - (unsigned char)(*s2));
+}
+
+void	free_mem(t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	if (philo == NULL)
+		return ;
+	while (philo->i[0] > i)
+	{
+		pthread_mutex_destroy(&philo->forks[i]);
+		pthread_mutex_destroy(&philo->philos[i].lock);
+		i++;
+	}
+	pthread_mutex_destroy(&philo->writing);
+	pthread_mutex_destroy(&philo->locked);
+	free(philo->thr_id);
+	free(philo->forks);
+	free(philo->philos);
 }
