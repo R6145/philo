@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 13:32:31 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/11 16:11:33 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/17 00:14:48 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@ void	*overseer(void *data)
 	t_philos	*philos;
 
 	philos = (t_philos *)data;
-	// pthread_mutex_lock(&philo->data->write);
-	// printf("data val: %d", philo->data->dead);
-	// pthread_mutex_unlock(&philo->data->write);
 	while (philos->philo->i[2] == 0)
 	{
 		pthread_mutex_lock(&philos->lock);
@@ -54,7 +51,7 @@ void	*t_checker(void *data)
 
 void	*t_action(void *data)
 {
-	t_philos *philos;
+	t_philos	*philos;
 
 	philos = (t_philos *)data;
 	philos->time_death = philos->philo->time[0] + current_time();

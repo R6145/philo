@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:34:32 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/11 15:43:46 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/17 00:11:11 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	init_protocol(t_philo *philo, char **argv, int argc)
 		philo->i[1] = (int)ft_atoi(argv[5]);
 	else
 		philo->i[1] = -1;
-	if (philo->i[0] <= 0 || philo->i[0] > 200)
-		return (printf("Wrong num of Philos\n"), exit(127), 0);
+	if (philo->i[0] > 20)
+		return (printf("num of Philos is too high\n"), exit(127), 0);
 	philo->i[2] = 0;
 	philo->i[3] = 0;
 	philo->thr_id = malloc(sizeof(pthread_t) * philo->i[0]);
@@ -75,11 +75,8 @@ int	program_start(t_philo *philo)
 	pthread_t	over;
 
 	philo->time[3] = current_time();
-	// if (data->meals_nb > 0)
-	// {
 	if (pthread_create(&over, NULL, &overseer, &philo->philos[0]))
 		return (printf("overseer creation failed"), free_mem(philo), 127);
-	// }
 	i = 0;
 	while (philo->i[0] > i)
 	{
@@ -98,5 +95,16 @@ int	program_start(t_philo *philo)
 	}
 	if (pthread_join(over, NULL))
 		return (printf("freeing error"), free_mem(philo), 127);
+	return (0);
+}
+
+int	one_philo(t_philo *philo)
+{
+	philo->time[3] = current_time();
+	if (pthread_create(&philo->thr_id[0], NULL, &t_action, &philo->philos[0]))
+		return (printf("thread mem failed"), free_mem(philo), 127);
+	if (pthread_join(philo->thr_id[0], NULL))
+		return (127);
+	free_mem(philo);
 	return (0);
 }
