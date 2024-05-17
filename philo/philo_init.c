@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:34:32 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/17 00:11:11 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:09:19 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ int	one_philo(t_philo *philo)
 	philo->time[3] = current_time();
 	if (pthread_create(&philo->thr_id[0], NULL, &t_action, &philo->philos[0]))
 		return (printf("thread mem failed"), free_mem(philo), 127);
-	if (pthread_join(philo->thr_id[0], NULL))
-		return (127);
+	pthread_detach(philo->thr_id[0]);
+	sleep_for(philo->time[0] + 100);
 	free_mem(philo);
 	return (0);
 }

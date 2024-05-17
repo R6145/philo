@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 23:16:40 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/17 00:09:28 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:38:08 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,12 @@ int	checkint(int argc, char **argv)
 {
 	int		i;
 	long	*temp;
-	int		z;
 
-	i = 0;
-	z = 0;
-	while (argv[z] != NULL)
-		z++;
-	z--;
-	temp = malloc(sizeof(long) * (z + 1));
+	i = 1;
+	temp = malloc(sizeof(long) * (argc + 1));
 	if (!temp)
 		return (0);
-	while (i <= z)
+	while (i < argc)
 	{
 		temp[i] = ft_atoi(argv[i]);
 		if (temp[i] >= 0 && ft_strlen(argv[i]) > 13)
