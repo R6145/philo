@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:10:27 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/17 16:09:07 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/18 13:39:49 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	print_m(char *str, t_philos *philos)
 	pthread_mutex_lock(&philos->philo->writing);
 	if (ft_strncmp("died", str, 5) == 0 && philos->philo->i[2] == 0)
 	{
-		printf("%lu ", time_diff);
+		printf("%llu ", time_diff);
 		printf("%d %s\n", philos->i[0], str);
 		philos->philo->i[2] = 1;
 	}
 	if (!philos->philo->i[2])
-		printf("%lu %d %s\n", time_diff, philos->i[0], str);
+		printf("%llu %d %s\n", time_diff, philos->i[0], str);
 	pthread_mutex_unlock(&philos->philo->writing);
 }
 
