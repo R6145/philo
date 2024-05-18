@@ -30,7 +30,7 @@ OBJS        := $(SRCS:.c=.o)
 	
     
 ${NAME}:	${OBJS}
-			@${CC} ${CFLAGS} ${OBJS} -o ${NAME} 
+			@${CC} -pthread ${CFLAGS} ${OBJS} -o ${NAME} 
 			@echo "\033[0;32mPHILO compiled successfully"
 
 
