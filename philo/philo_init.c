@@ -22,20 +22,20 @@ int	init_protocol(t_philo *philo, char **argv, int argc)
 		philo->i[1] = (int)ft_atoi(argv[5]);
 	else
 		philo->i[1] = -1;
-	if (philo->i[0] > 20 || philo->i[0] < 1 || philo->i[1] == 0
+	if (philo->i[0] >= 200 || philo->i[0] < 1 || philo->i[1] == 0
 		|| philo->time[0] == 0 || philo->time[1] == 0 || philo->time[2] == 0)
-		return (printf("Argument not accepted\n"), exit(127), 0);
+		return (printf("Argument not accepted\n"), 127);
 	philo->i[2] = 0;
 	philo->i[3] = 0;
 	philo->thr_id = malloc(sizeof(pthread_t) * philo->i[0]);
 	if (philo->thr_id == NULL)
-		return (printf("Malloc Error\n"), exit(127), 0);
+		return (printf("Malloc Error\n"), 127);
 	philo->forks = malloc(sizeof(pthread_mutex_t) * philo->i[0]);
 	if (philo->forks == NULL)
-		return (printf("Malloc Error\n"), exit(127), 0);
+		return (printf("Malloc Error\n"), 127);
 	philo->philos = malloc(sizeof(t_philo) * philo->i[0]);
 	if (philo->philos == NULL)
-		return (printf("Malloc Error\n"), exit(127), 0);
+		return (printf("Malloc Error\n"), 127);
 	pthread_mutex_init(&philo->writing, NULL);
 	pthread_mutex_init(&philo->locked, NULL);
 	return (0);

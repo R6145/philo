@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 		return (127);
 	init_protocol2(&philo);
 	if (philo.i[0] == 1)
-		return (one_philo(&philo), exit(0), 0);
+		return (one_philo(&philo), 0);
 	if (program_start(&philo) != 0)
 		return (1);
 	free_mem(&philo);
