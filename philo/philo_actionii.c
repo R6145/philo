@@ -40,11 +40,14 @@ void	*t_checker(void *data)
 	while (1)
 	{
 		pthread_mutex_lock(&philos->lock);
+		pthread_mutex_lock(&philos->philo->writing);
 		if(philos->philo->i[2] == 1)
 		{
 			pthread_mutex_unlock(&philos->lock);
+			pthread_mutex_unlock(&philos->philo->writing);
 			break;
 		}
+		pthread_mutex_unlock(&philos->philo->writing);
 		if (philos->i[3] != 1 && current_time() >= philos->time_death)
 			print_m("died", philos);
 		if (philos->i[1] == philos->philo->i[1])
@@ -67,10 +70,17 @@ void	*t_action(void *data)
 	philos->time_death = philos->philo->time[0] + current_time();
 	if (pthread_create(&philos->thr, NULL, &t_checker, (void *)philos))
 		return ((void *)1);
-	while (philos->philo->i[2] == 0)
+	while (1)
 	{
 		eating(philos);
 		print_m("is thinking", philos);
+		pthread_mutex_lock(&philos->philo->writing);
+		if(philos->philo->i[2] != 0)
+		{
+			pthread_mutex_unlock(&philos->philo->writing);
+			break;
+		}
+		pthread_mutex_unlock(&philos->philo->writing);
 	}
 	if (pthread_join(philos->thr, NULL))
 		return ((void *)127);
