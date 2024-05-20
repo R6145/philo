@@ -54,14 +54,14 @@ void	unlock_f(t_philos *philos)
 
 void	eating(t_philos *philos)
 {
-	pthread_mutex_lock(&philos->lock);
 	lock_f(philos);
+	pthread_mutex_lock(&philos->lock);
 	philos->i[3] = 1;
 	philos->time_death = current_time() + philos->philo->time[0];
 	print_m("is eating", philos);
 	philos->i[1]++;
 	sleep_for(philos->philo->time[1]);
 	philos->i[3] = 0;
-	unlock_f(philos);
 	pthread_mutex_unlock(&philos->lock);
+	unlock_f(philos);
 }
