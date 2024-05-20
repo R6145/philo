@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 13:32:31 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/20 13:49:31 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:34:55 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	*overseer(void *data)
 	{
 		pthread_mutex_lock(&philos->lock);
 		pthread_mutex_lock(&philos->philo->writing);
-		if(philos->philo->i[2] != 0)
+		if (philos->philo->i[2] != 0)
 		{
 			pthread_mutex_unlock(&philos->philo->writing);
 			pthread_mutex_unlock(&philos->lock);
-			break;
+			break ;
 		}
 		if (philos->philo->i[3] >= philos->philo->i[0])
 			philos->philo->i[2] = 1;
@@ -44,12 +44,9 @@ void	*t_checker(void *data)
 	{
 		pthread_mutex_lock(&philos->lock);
 		pthread_mutex_lock(&philos->philo->writing);
-		if(philos->philo->i[2] == 1)
-		{
-			pthread_mutex_unlock(&philos->lock);
-			pthread_mutex_unlock(&philos->philo->writing);
-			break;
-		}
+		if (philos->philo->i[2] == 1)
+			return (pthread_mutex_unlock(&philos->lock),
+				pthread_mutex_unlock(&philos->philo->writing), (void *)0);
 		pthread_mutex_unlock(&philos->philo->writing);
 		if (philos->i[3] != 1 && current_time() >= philos->time_death)
 			print_m("died", philos);
@@ -78,10 +75,10 @@ void	*t_action(void *data)
 		eating(philos);
 		print_m("is thinking", philos);
 		pthread_mutex_lock(&philos->philo->writing);
-		if(philos->philo->i[2] != 0)
+		if (philos->philo->i[2] != 0)
 		{
 			pthread_mutex_unlock(&philos->philo->writing);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&philos->philo->writing);
 	}
