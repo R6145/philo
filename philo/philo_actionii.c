@@ -25,8 +25,10 @@ void	*overseer(void *data)
 			pthread_mutex_unlock(&philos->lock);
 			break;
 		}
+		pthread_mutex_lock(&philos->philo->writing);
 		if (philos->philo->i[3] >= philos->philo->i[0])
 			philos->philo->i[2] = 1;
+		pthread_mutex_unlock(&philos->philo->writing);
 		pthread_mutex_unlock(&philos->lock);
 	}
 	return ((void *)0);
