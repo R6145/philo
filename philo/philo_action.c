@@ -32,15 +32,15 @@ void	print_m(char *str, t_philos *philos)
 void	lock_f(t_philos *philos)
 {
     if (philos->right_fork < philos->left_fork) {
+		print_m("has taken a fork", philos);
+        print_m("has taken a fork", philos);
         pthread_mutex_lock(philos->right_fork);
-        print_m("has taken a fork", philos);
         pthread_mutex_lock(philos->left_fork);
-        print_m("has taken a fork", philos);
     } else {
+		print_m("has taken a fork", philos);
+        print_m("has taken a fork", philos);
         pthread_mutex_lock(philos->left_fork);
-        print_m("has taken a fork", philos);
         pthread_mutex_lock(philos->right_fork);
-        print_m("has taken a fork", philos);
     }
 }
 
