@@ -98,14 +98,3 @@ int	program_start(t_philo *philo)
 		return (printf("freeing error"), free_mem(philo), 127);
 	return (0);
 }
-
-int	one_philo(t_philo *philo)
-{
-	philo->time[3] = current_time();
-	if (pthread_create(&philo->thr_id[0], NULL, &t_action, &philo->philos[0]))
-		return (printf("thread mem failed"), free_mem(philo), 127);
-	pthread_detach(philo->thr_id[0]);
-	sleep_for(philo->time[0] + 100);
-	free_mem(philo);
-	return (0);
-}

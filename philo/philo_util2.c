@@ -23,3 +23,17 @@ size_t	ft_strlen(const char *ch)
 	}
 	return (i);
 }
+
+int	one_philo(t_philo *philo)
+{
+	philo->time[3] = current_time();
+	printf("%lu %d %s\n", (unsigned long)0, philo->philos->i[0],
+		"has taken a fork");
+	sleep_for(100);
+	printf("%lu ", (unsigned long)100);
+	printf("%d %s\n", philo->philos->i[0], "died");
+	sleep_for(400);
+	pthread_detach(philo->thr_id[0]);
+	free_mem(philo);
+	return (0);
+}
