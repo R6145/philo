@@ -72,6 +72,7 @@ void	*t_action(void *data)
 		return ((void *)1);
 	while (1)
 	{
+		pthread_mutex_lock(&philos->philo->writing);
 		if (philos->philo->i[2] != 0)
 		{
 			pthread_mutex_unlock(&philos->philo->writing);
@@ -83,7 +84,6 @@ void	*t_action(void *data)
 			eating(philos);
 			print_m("is thinking", philos);
 		}
-		pthread_mutex_lock(&philos->philo->writing);
 	}
 	if (pthread_join(philos->thr, NULL))
 		return ((void *)127);
