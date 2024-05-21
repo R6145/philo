@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:34:32 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/21 13:19:35 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:25:28 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	init_protocol(t_philo *philo, char **argv, int argc)
 		philo->i[1] = (int)ft_atoi(argv[5]);
 	else
 		philo->i[1] = -1;
-	if (philo->i[0] >= 200 || philo->i[0] < 1 || philo->i[1] == 0
+	if (philo->i[0] > 201 || philo->i[0] < 1 || philo->i[1] == 0
 		|| philo->time[0] == 0 || philo->time[1] == 0 || philo->time[2] == 0)
 		return (printf("Argument not accepted\n"), 127);
 	philo->i[2] = 0;

@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 13:32:31 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/20 19:34:55 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:39:37 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*overseer(void *data)
 			pthread_mutex_unlock(&philos->lock);
 			break ;
 		}
-		if (philos->philo->i[3] >= philos->philo->i[0])
+		if (philos->philo->i[3] == philos->philo->i[0])
 			philos->philo->i[2] = 1;
 		pthread_mutex_unlock(&philos->philo->writing);
 		pthread_mutex_unlock(&philos->lock);
@@ -72,15 +72,18 @@ void	*t_action(void *data)
 		return ((void *)1);
 	while (1)
 	{
-		eating(philos);
-		print_m("is thinking", philos);
-		pthread_mutex_lock(&philos->philo->writing);
 		if (philos->philo->i[2] != 0)
 		{
 			pthread_mutex_unlock(&philos->philo->writing);
 			break ;
 		}
 		pthread_mutex_unlock(&philos->philo->writing);
+		if (!(philos->i[1] > philos->philo->i[1]) || philos->philo->i[1] == -1)
+		{
+			eating(philos);
+			print_m("is thinking", philos);
+		}
+		pthread_mutex_lock(&philos->philo->writing);
 	}
 	if (pthread_join(philos->thr, NULL))
 		return ((void *)127);
