@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:34:32 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/21 18:54:47 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/21 18:56:57 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ int	program_start(t_philo *philo)
 	pthread_t	over;
 
 	philo->time[3] = current_time();
-	// pthread_mutex_lock(&philo->locked);
+	pthread_mutex_lock(&philo->locked);
 	if (pthread_create(&over, NULL, &overseer, &philo->philos[0]))
 		return (printf("overseer creation failed"), free_mem(philo), 127);
-	// pthread_mutex_unlock(&philo->locked);
+	pthread_mutex_unlock(&philo->locked);
 	i = 0;
 	program_start_ext(philo, i);
 	i = 0;
