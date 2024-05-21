@@ -68,8 +68,10 @@ void	*t_action(void *data)
 
 	philos = (t_philos *)data;
 	philos->time_death = philos->philo->time[0] + current_time();
+	pthread_mutex_lock(&philos->philo->locked);
 	if (pthread_create(&philos->thr, NULL, &t_checker, (void *)philos))
 		return ((void *)1);
+	pthread_mutex_unlock(&philos->philo->locked);
 	while (1)
 	{
 		pthread_mutex_lock(&philos->philo->writing);

@@ -76,14 +76,19 @@ int	program_start(t_philo *philo)
 	pthread_t	over;
 
 	philo->time[3] = current_time();
+	pthread_mutex_lock(&philo->locked);
 	if (pthread_create(&over, NULL, &overseer, &philo->philos[0]))
 		return (printf("overseer creation failed"), free_mem(philo), 127);
+	pthread_mutex_unlock(&philo->locked);
+
 	i = 0;
 	while (philo->i[0] > i)
 	{
+		pthread_mutex_lock(&philo->locked);
 		if (pthread_create(&philo->thr_id[i], NULL, &t_action,
 				&philo->philos[i]))
 			return (printf("thread %d mem failed", i), free_mem(philo), 127);
+		pthread_mutex_unlock(&philo->locked);
 		sleep_for(1, NULL);
 		i++;
 	}
