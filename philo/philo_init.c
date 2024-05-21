@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:34:32 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/18 14:03:46 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:19:35 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	program_start(t_philo *philo)
 		if (pthread_create(&philo->thr_id[i], NULL, &t_action,
 				&philo->philos[i]))
 			return (printf("thread %d mem failed", i), free_mem(philo), 127);
-		sleep_for(1);
+		sleep_for(1, NULL);
 		i++;
 	}
 	i = 0;

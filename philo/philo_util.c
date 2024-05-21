@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:33:21 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/11 15:38:21 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:12:50 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,23 @@ u_int64_t	current_time(void)
 	return ((tv.tv_sec * (u_int64_t)1000) + (tv.tv_usec / 1000));
 }
 
-void	sleep_for(useconds_t time)
+void	sleep_for(useconds_t time, t_philos *philos)
 {
 	u_int64_t	start;
 
 	start = current_time();
-	while ((current_time() - start) < time)
-		usleep(time / 5);
+	if (philos == NULL)
+	{
+		while ((current_time() - start) < time)
+			usleep(time / 5);
+	}
+	else
+	{
+		pthread_mutex_lock(&philos->philo->writing);
+		while ((current_time() - start) < time && philos->philo->i[2] != 1)
+			usleep(time / 5);
+		pthread_mutex_unlock(&philos->philo->writing);
+	}
 }
 
 long	ft_atoi(const char *str)
