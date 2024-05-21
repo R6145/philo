@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:25:08 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/21 15:25:16 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:21:13 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int					checkint(int argc, char **argv);
 int					init_protocol(t_philo *philo, char **argv, int argc);
 void				init_protocol2(t_philo *philo);
 int					program_start(t_philo *philo);
+int					program_start_ext(t_philo *philo, int i);
 // action
 void				print_m(char *str, t_philos *philos);
 void				lock_f(t_philos *philos);
@@ -73,6 +74,7 @@ void				eating(t_philos *philos);
 void				*overseer(void *data);
 void				*t_checker(void *data);
 void				*t_action(void *data);
+void				t_action_ext(t_philos *philos);
 // special
 int					one_philo(t_philo *philo);
 

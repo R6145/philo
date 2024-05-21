@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:10:27 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/21 15:23:32 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:32:50 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,10 @@ void	eating(t_philos *philos)
 {
 	lock_f(philos);
 	pthread_mutex_lock(&philos->lock);
-	//philos->i[3] = 1;
 	philos->time_death = current_time() + philos->philo->time[0];
 	print_m("is eating", philos);
 	philos->i[1]++;
-	sleep_for(philos->philo->time[1], NULL);
-	//philos->i[3] = 0;
+	sleep_for(philos->philo->time[1], philos);
 	pthread_mutex_unlock(&philos->lock);
 	unlock_f(philos);
 }

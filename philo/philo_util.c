@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:33:21 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/21 13:12:50 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/21 18:53:32 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	sleep_for(useconds_t time, t_philos *philos)
 	if (philos == NULL)
 	{
 		while ((current_time() - start) < time)
-			usleep(time / 5);
+			usleep(time / 100);
 	}
 	else
 	{

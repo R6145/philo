@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 13:32:31 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/21 15:39:37 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/21 18:55:56 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,15 @@ void	*t_action(void *data)
 		}
 		pthread_mutex_unlock(&philos->philo->writing);
 		if (!(philos->i[1] > philos->philo->i[1]) || philos->philo->i[1] == -1)
-		{
-			eating(philos);
-			print_m("is thinking", philos);
-		}
+			t_action_ext(philos);
 	}
 	if (pthread_join(philos->thr, NULL))
 		return ((void *)127);
 	return ((void *)0);
+}
+
+void	t_action_ext(t_philos *philos)
+{
+	eating(philos);
+	print_m("is thinking", philos);
 }
