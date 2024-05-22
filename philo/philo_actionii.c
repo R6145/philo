@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 13:32:31 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/22 14:35:20 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:51:31 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	*t_checker(void *data)
 			return (pthread_mutex_unlock(&philos->lock),
 				pthread_mutex_unlock(&philos->philo->writing), (void *)0);
 		pthread_mutex_unlock(&philos->philo->writing);
-		if (philos->i[3] != 1 && current_time() >= philos->time_death)
+		if (current_time() >= philos->time_death)
 			print_m("died", philos);
 		if (philos->i[1] == philos->philo->i[1])
 		{
