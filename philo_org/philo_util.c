@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:33:21 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/22 19:15:01 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:09:29 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,12 @@ void	sleep_for(useconds_t time, t_philos *philos)
 	{
 		while ((current_time() - start) < time)
 		{
-			// pthread_mutex_lock(&philos->philo->writing);
 			if (philos->philo->i[2] == 0)
 			{
 				usleep(time / 10);
 			}
 			else
-			{
 				break ;
-				// pthread_mutex_unlock(&philos->philo->writing);
-			}
-			// pthread_mutex_unlock(&philos->philo->writing);
 		}
 	}
 }
