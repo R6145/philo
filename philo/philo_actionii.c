@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 13:32:31 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/21 18:55:56 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/22 14:35:20 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	*overseer(void *data)
 	philos = (t_philos *)data;
 	while (1)
 	{
+		usleep(1000);
 		pthread_mutex_lock(&philos->lock);
 		pthread_mutex_lock(&philos->philo->writing);
 		if (philos->philo->i[2] != 0)

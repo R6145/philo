@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:10:27 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/21 17:32:50 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:13:20 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ void	lock_f(t_philos *philos)
 {
 	if (philos->right_fork < philos->left_fork)
 	{
-		print_m("has taken a fork", philos);
-		print_m("has taken a fork", philos);
 		pthread_mutex_lock(philos->right_fork);
 		pthread_mutex_lock(philos->left_fork);
+		print_m("has taken a fork", philos);
+		print_m("has taken a fork", philos);
 	}
 	else
 	{
-		print_m("has taken a fork", philos);
-		print_m("has taken a fork", philos);
 		pthread_mutex_lock(philos->left_fork);
 		pthread_mutex_lock(philos->right_fork);
+		print_m("has taken a fork", philos);
+		print_m("has taken a fork", philos);
 	}
 }
 
@@ -52,7 +52,8 @@ void	unlock_f(t_philos *philos)
 	pthread_mutex_unlock(philos->left_fork);
 	pthread_mutex_unlock(philos->right_fork);
 	print_m("is sleeping", philos);
-	sleep_for(philos->philo->time[2], NULL);
+	sleep_for(philos->philo->time[2], philos);
+	usleep(2);
 }
 
 void	eating(t_philos *philos)

@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:25:08 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/21 17:21:13 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:05:31 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void				*t_checker(void *data);
 void				*t_action(void *data);
 void				t_action_ext(t_philos *philos);
 // special
+void				*t_one(void *data);
 int					one_philo(t_philo *philo);
 
 #endif
