@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:10:27 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/22 17:13:20 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/26 18:32:37 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	unlock_f(t_philos *philos)
 	pthread_mutex_unlock(philos->left_fork);
 	pthread_mutex_unlock(philos->right_fork);
 	print_m("is sleeping", philos);
-	sleep_for(philos->philo->time[2], philos);
+	sleep_for(philos->philo->time[2], NULL);
 	usleep(2);
 }
 
@@ -63,7 +63,13 @@ void	eating(t_philos *philos)
 	philos->time_death = current_time() + philos->philo->time[0];
 	print_m("is eating", philos);
 	philos->i[1]++;
-	sleep_for(philos->philo->time[1], philos);
+	sleep_for(philos->philo->time[1], NULL);
 	pthread_mutex_unlock(&philos->lock);
 	unlock_f(philos);
+}
+
+void	ft_even(t_philos *philos)
+{
+	print_m("is thinking", philos);
+	sleep_for(philos->philo->time[2], NULL);
 }

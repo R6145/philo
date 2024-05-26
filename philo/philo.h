@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:25:08 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/22 19:11:20 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/26 18:32:56 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void				print_m(char *str, t_philos *philos);
 void				lock_f(t_philos *philos);
 void				unlock_f(t_philos *philos);
 void				eating(t_philos *philos);
+void				ft_even(t_philos *philos);
 void				*overseer(void *data);
 void				*t_action(void *data);
 void				t_action_ext(t_philos *philos);
