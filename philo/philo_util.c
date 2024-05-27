@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:33:21 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/26 17:00:36 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/27 20:19:07 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	sleep_for(useconds_t time, t_philos *philos)
 	if (philos == NULL)
 	{
 		while ((current_time() - start) < time)
-			usleep(time / 10);
+			usleep(500);
 	}
 	else
 	{
@@ -39,12 +39,14 @@ void	sleep_for(useconds_t time, t_philos *philos)
 			if (philos->philo->i[2] == 0)
 			{
 				pthread_mutex_unlock(&philos->philo->writing);
-				usleep(time / 10);
+				usleep(500);
 			}
 			else
+			{
+				pthread_mutex_unlock(&philos->philo->writing);
 				break ;
+			}
 		}
-		pthread_mutex_unlock(&philos->philo->writing);
 	}
 }
 
@@ -106,6 +108,7 @@ void	free_mem(t_philo *philo)
 	}
 	pthread_mutex_destroy(&philo->writing);
 	pthread_mutex_destroy(&philo->locked);
+	pthread_mutex_destroy(&philo->locked2);
 	free(philo->thr_id);
 	free(philo->forks);
 	free(philo->philos);

@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:25:08 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/26 18:32:56 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/27 19:47:50 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_philo
 	pthread_t		*thr_id;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	locked;
+	pthread_mutex_t	locked2;
 	pthread_mutex_t	writing;
 }					t_philo;
 

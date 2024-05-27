@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 13:32:31 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/26 18:43:06 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/27 20:31:01 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	*overseer(void *data)
 
 	philos = (t_philos *)data;
 	usleep(1000);
+	pthread_mutex_lock(&philos->philo->locked2);
+	pthread_mutex_unlock(&philos->philo->locked2);
 	while (1)
 	{
 		j = 0;
@@ -31,6 +33,8 @@ void	*overseer(void *data)
 					pthread_mutex_unlock(&philos->philo->writing), (void *)0);
 			pthread_mutex_unlock(&philos->philo->writing);
 			pthread_mutex_lock(&philos->philo->locked);
+			if( current_time() >= philos->philo->philos[j].time_death)
+				printf("here\n");
 			if (current_time() >= philos->philo->philos[j].time_death
 				&& philos->philo->i[3] != philos->philo->i[0])
 				print_m("died", &philos->philo->philos[j]);
@@ -76,22 +80,14 @@ void	*t_action(void *data)
 
 	philos = (t_philos *)data;
 	pthread_mutex_lock(&philos->philo->locked);
-	philos->time_death = philos->philo->time[0] + current_time();
 	pthread_mutex_unlock(&philos->philo->locked);
-	// if (philos->i[0] % 2 == 0)
-	// {
-	// 	printf("hello\n");
-	// 	ft_even(philos);
-	// }
+	// pthread_mutex_lock(&philos->philo->locked);
+	philos->time_death = philos->philo->time[0] + current_time();
+	// pthread_mutex_unlock(&philos->philo->locked);
+	if (philos->i[0] % 2 == 0)
+		ft_even(philos);
 	while (1)
 	{
-		pthread_mutex_lock(&philos->philo->writing);
-		if (philos->philo->i[2] != 0)
-		{
-			pthread_mutex_unlock(&philos->philo->writing);
-			break ;
-		}
-		pthread_mutex_unlock(&philos->philo->writing);
 		if (philos->i[1] == philos->philo->i[1])
 		{
 			pthread_mutex_lock(&philos->philo->locked);
@@ -99,6 +95,13 @@ void	*t_action(void *data)
 			philos->i[1]++;
 			pthread_mutex_unlock(&philos->philo->locked);
 		}
+		pthread_mutex_lock(&philos->philo->writing);
+		if (philos->philo->i[2] != 0)
+		{
+			pthread_mutex_unlock(&philos->philo->writing);
+			break ;
+		}
+		pthread_mutex_unlock(&philos->philo->writing);
 		if (!(philos->i[1] > philos->philo->i[1]) || philos->philo->i[1] == -1)
 			t_action_ext(philos);
 	}

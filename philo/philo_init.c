@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:34:32 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/22 18:51:15 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/27 19:49:19 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	init_protocol(t_philo *philo, char **argv, int argc)
 		return (printf("Malloc Error\n"), 127);
 	pthread_mutex_init(&philo->writing, NULL);
 	pthread_mutex_init(&philo->locked, NULL);
+	pthread_mutex_init(&philo->locked2, NULL);
 	return (0);
 }
 
@@ -96,15 +97,16 @@ int	program_start(t_philo *philo)
 
 int	program_start_ext(t_philo *philo, int i)
 {
+	pthread_mutex_lock(&philo->locked2);
+	pthread_mutex_lock(&philo->locked);
 	while (philo->i[0] > i)
 	{
-		pthread_mutex_lock(&philo->locked);
 		if (pthread_create(&philo->thr_id[i], NULL, &t_action,
 				&philo->philos[i]))
 			return (printf("thread %d mem failed", i), free_mem(philo), 127);
-		pthread_mutex_unlock(&philo->locked);
-		sleep_for(1, NULL);
 		i++;
 	}
+	pthread_mutex_unlock(&philo->locked);
+	pthread_mutex_unlock(&philo->locked2);
 	return (0);
 }
