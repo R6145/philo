@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:10:27 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/27 20:00:46 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:58:36 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,29 @@ void	lock_f(t_philos *philos)
 	{
 		pthread_mutex_lock(philos->right_fork);
 		pthread_mutex_lock(philos->left_fork);
-		print_m("has taken a fork", philos);
-		print_m("has taken a fork", philos);
 	}
 	else
 	{
 		pthread_mutex_lock(philos->left_fork);
 		pthread_mutex_lock(philos->right_fork);
-		print_m("has taken a fork", philos);
-		print_m("has taken a fork", philos);
 	}
+	pthread_mutex_lock(&philos->philo->locked2);
+	print_m("has taken a fork", philos);
+	print_m("has taken a fork", philos);
+	pthread_mutex_unlock(&philos->philo->locked2);
 }
 
 void	unlock_f(t_philos *philos)
 {
 	pthread_mutex_unlock(philos->left_fork);
 	pthread_mutex_unlock(philos->right_fork);
+	if (philos->i[1] == philos->philo->i[1])
+	{
+		return ;
+	}
+	pthread_mutex_lock(&philos->philo->locked2);
 	print_m("is sleeping", philos);
+	pthread_mutex_unlock(&philos->philo->locked2);
 	sleep_for(philos->philo->time[2], philos);
 }
 
@@ -60,15 +66,11 @@ void	eating(t_philos *philos)
 	lock_f(philos);
 	pthread_mutex_lock(&philos->lock);
 	philos->time_death = current_time() + philos->philo->time[0];
+	pthread_mutex_lock(&philos->philo->locked2);
 	print_m("is eating", philos);
+	pthread_mutex_unlock(&philos->philo->locked2);
 	philos->i[1]++;
+	pthread_mutex_unlock(&philos->lock);
 	sleep_for(philos->philo->time[1], philos);
 	unlock_f(philos);
-	pthread_mutex_unlock(&philos->lock);
-}
-
-void	ft_even(t_philos *philos)
-{
-	print_m("is thinking", philos);
-	sleep_for(philos->philo->time[2], NULL);
 }
