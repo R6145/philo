@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 13:32:31 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/05/28 14:58:11 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:22:07 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,6 @@ void	t_action_act(t_philos *philos)
 	if (!(philos->i[1] > philos->philo->i[1]) || philos->philo->i[1] == -1)
 	{
 		eating(philos);
-		if (philos->i[1] == philos->philo->i[1])
-		{
-			return ;
-		}
 		pthread_mutex_lock(&philos->philo->locked2);
 		print_m("is thinking", philos);
 		pthread_mutex_unlock(&philos->philo->locked2);
